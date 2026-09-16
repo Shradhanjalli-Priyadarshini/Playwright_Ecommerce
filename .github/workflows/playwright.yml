@@ -31,3 +31,14 @@ jobs:
         env:
           HEADLESS: "true"
         run: pytest
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: |
+            screenshots/
+            traces/
+            videos/
+          if-no-files-found: ignore

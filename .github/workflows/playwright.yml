@@ -30,7 +30,7 @@ jobs:
       - name: Run Pytest
         env:
           HEADLESS: "true"
-        run: pytest
+        run: pytest --html=reports/report.html --self-contained-html
 
       - name: Upload test artifacts
         if: always()
@@ -41,4 +41,5 @@ jobs:
             screenshots/
             traces/
             videos/
+            reports/
           if-no-files-found: ignore

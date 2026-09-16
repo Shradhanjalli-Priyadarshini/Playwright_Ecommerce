@@ -1,6 +1,7 @@
+import os
 BASE_URL = "https://www.saucedemo.com" # No / at the end of the URL, because later we can easily construct URLs
 BROWSER = "chromium"
-HEADLESS = False
+HEADLESS = os.getenv("HEADLESS", "false").lower() == "true"
 DEFAULT_TIMEOUT = 5000
 
 ENVIRONMENTS = {

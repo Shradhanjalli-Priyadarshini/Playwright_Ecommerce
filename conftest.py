@@ -12,6 +12,14 @@ def pytest_addoption(parser):
         default="prod",
         help="Environment to run tests against"
     )
+    
+    parser.addoption(
+        "--video",
+        action="store",
+        default="off",
+        choices=["on", "off"],
+        help="Enable video recording"
+    )
 
     
 @pytest.fixture(scope="session")

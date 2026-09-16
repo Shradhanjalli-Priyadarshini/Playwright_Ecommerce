@@ -14,6 +14,8 @@ Pytest
 Page Object Model (POM)
 HTML Reporting
 Git & GitHub
+GitHub Actions (CI/CD)
+
 Project Structure
 Playwright_Ecommerce/
 │
@@ -54,9 +56,12 @@ Reusable page methods and utilities
 Configurable test environments
 Test data management
 Pytest fixtures
-HTML test reporting
 Cross-browser automation support
 Maintainable and reusable test structure
+GitHub Actions CI/CD integration
+Automated test execution on push and pull request
+HTML test reporting
+Test artifacts including reports, traces, screenshots and videos
 
 Prerequisites
 
@@ -118,15 +123,27 @@ Add product to cart
 Cart validation
 Checkout workflow
 Order validation
-Reports
 
-The framework can generate test execution reports using Pytest reporting tools.
+## Reports
 
-Example:
+The framework generates HTML test execution reports using **pytest-html**.
 
-pytest --html=reports/report.html
+Run tests with HTML reporting:
 
-The generated report can be opened in a browser to review test execution results.
+pytest --html=reports/report.html --self-contained-html
+
+The HTML report can be opened in a browser to review test execution results.
+
+### CI/CD Reporting
+
+GitHub Actions automatically executes the test suite and generates the HTML report.
+
+Test artifacts are uploaded after every CI run and include:
+
+- HTML test report
+- Playwright traces
+- Screenshots for failed tests
+- Videos when video recording is enabled
 
 Configuration
 
@@ -138,7 +155,6 @@ Future Enhancements
 
 Planned improvements include:
 
-GitHub Actions CI/CD integration
 Allure reporting
 Parallel test execution
 Additional API automation

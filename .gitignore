@@ -1,0 +1,41 @@
+# Virtual environment
+test_env/
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest
+.pytest_cache/
+
+# Test reports
+reports/
+
+# Screenshots generated during test execution
+screenshots/
+videos/
+traces/
+
+# Playwright generated files
+playwright-report/
+test-results/
+allure-results/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables / secrets
+.env
+.env.*
+
+# Coverage
+.coverage
+htmlcov/

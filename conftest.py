@@ -14,12 +14,12 @@ def pytest_addoption(parser):
     )
     
     parser.addoption(
-        "--video",
-        action="store",
-        default="off",
-        choices=["on", "off"],
-        help="Enable video recording"
-    )
+    "--record-video",
+    action="store",
+    default="off",
+    choices=["on", "off"],
+    help="Enable video recording"
+)
 
     
 @pytest.fixture(scope="session")
@@ -60,7 +60,7 @@ def context(browser,request):
     test_name = request.node.name
     trace_path = (f"traces/{test_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.zip")
     
-    video_enabled = request.config.getoption("--video")
+    video_enabled = request.config.getoption("--record-video")
     context_options ={}
     
     if video_enabled == "on":
@@ -143,3 +143,11 @@ def pytest_runtest_makereport(
                 f"{item.name}_{timestamp}.png")
 
             page.screenshot(path=screenshot_path)
+            
+@pytest.fixture(scope="function")
+def api_context(playwright_instance):
+    api_context = playwright_instance.request.new_context(
+        base_url="https://jsonplaceholder.typicode.com"
+    )
+    yield api_context
+    api_context.dispose()

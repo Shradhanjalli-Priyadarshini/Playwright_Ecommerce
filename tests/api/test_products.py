@@ -2,7 +2,9 @@ from playwright.sync_api import Playwright
 from utils.api_client import APIClient
 from data.api_test_data import CREATE_PRODUCT_DATA, UPDATE_PRODUCT_DATA
 import time
+import pytest
 
+@pytest.mark.api
 def test_get_products(api_context):
 
     api_client = APIClient(api_context)
@@ -19,7 +21,8 @@ def test_get_products(api_context):
     print("Status Code:", response.status)
     print("Number of records:", len(response_data))
     print("First record:", response_data[0])
-    
+
+@pytest.mark.api    
 def test_get_product_by_id(api_context):
 
     api_client = APIClient(api_context)
@@ -38,7 +41,8 @@ def test_get_product_by_id(api_context):
     print("Status Code:", response.status)
     print("Product/Post ID:", response_data["id"])
     print("Title:", response_data["title"])
-    
+
+@pytest.mark.api    
 def test_create_product(api_context):
 
     api_client = APIClient(api_context)
@@ -64,6 +68,7 @@ def test_create_product(api_context):
     print("Created ID:", response_data["id"])
     print("Created Data:", response_data)
 
+@pytest.mark.api
 def test_update_product(api_context):
 
     api_client = APIClient(api_context)
@@ -89,7 +94,8 @@ def test_update_product(api_context):
     print("Status Code:", response.status)
     print("Updated ID:", response_data["id"])
     print("Updated Data:", response_data)
-
+    
+@pytest.mark.api
 def test_delete_product(api_context):
 
     api_client = APIClient(api_context)
@@ -104,7 +110,8 @@ def test_delete_product(api_context):
     print("Product deleted successfully")
 
     api_context.dispose()
-    
+
+@pytest.mark.api    
 def test_get_invalid_product(api_context):
 
     api_client = APIClient(api_context)
@@ -115,7 +122,8 @@ def test_get_invalid_product(api_context):
 
     print("Status Code:", response.status)
     print("Invalid product ID handled correctly")
-    
+
+@pytest.mark.api    
 def test_get_products_response_headers(api_context):
 
     api_client = APIClient(api_context)
@@ -131,7 +139,8 @@ def test_get_products_response_headers(api_context):
 
     print("Status Code:", response.status)
     print("Content-Type:", content_type)
-    
+
+@pytest.mark.api    
 def test_get_products_response_time(api_context):
 
     api_client = APIClient(api_context)
@@ -149,7 +158,8 @@ def test_get_products_response_time(api_context):
     print("Response Time:", round(response_time, 2), "ms")
 
     assert response_time < 2000
-    
+
+@pytest.mark.api    
 def test_api_chaining_get_and_get(api_context):
     # 1. Get all posts
     response = api_context.get("/posts")

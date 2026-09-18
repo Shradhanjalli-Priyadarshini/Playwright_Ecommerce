@@ -1,8 +1,31 @@
 import os
 import pytest
-from playwright.sync_api import sync_playwright
 from config.settings import BROWSER, HEADLESS, DEFAULT_TIMEOUT, ENVIRONMENTS
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+@pytest.fixture
+def api_request(playwright):
+    api_base_url = os.getenv("API_BASE_URL")
+
+    request = playwright.request.new_context(
+        base_url=api_base_url
+    )
+
+    yield request
+
+    request.dispose()
+    
+@pytest.fixture
+def auth_headers():
+    api_token = os.getenv("API_TOKEN")
+
+    return {
+        "Authorization": f"Bearer {api_token}"
+    }
 
 
 def pytest_addoption(parser):
@@ -23,20 +46,14 @@ def pytest_addoption(parser):
 
     
 @pytest.fixture(scope="session")
-def playwright_instance():
-    with sync_playwright() as playwright:
-        yield playwright
-
-
-@pytest.fixture(scope="session")
-def browser(playwright_instance):
+def browser(playwright):
     browser_name = BROWSER
     valid_browsers = ["chromium", "firefox", "webkit"]
 
     if browser_name not in valid_browsers:
         raise ValueError(f"Invalid browser: {browser_name}")
 
-    browser_type = getattr(playwright_instance, browser_name)
+    browser_type = getattr(playwright, browser_name)
     browser = browser_type.launch(headless=HEADLESS)
 
     yield browser
@@ -145,8 +162,8 @@ def pytest_runtest_makereport(
             page.screenshot(path=screenshot_path)
             
 @pytest.fixture(scope="function")
-def api_context(playwright_instance):
-    api_context = playwright_instance.request.new_context(
+def api_context(playwright):
+    api_context = playwright.request.new_context(
         base_url="https://jsonplaceholder.typicode.com"
     )
     yield api_context

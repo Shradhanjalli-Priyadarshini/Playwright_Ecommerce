@@ -30,6 +30,8 @@ jobs:
       - name: Run Pytest
         env:
           HEADLESS: "true"
+          API_BASE_URL: "https://jsonplaceholder.typicode.com"
+          API_TOKEN: "demo-token"
         run: pytest --html=reports/report.html --self-contained-html
 
       - name: Upload test artifacts

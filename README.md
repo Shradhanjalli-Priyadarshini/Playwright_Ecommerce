@@ -1,35 +1,49 @@
-Playwright Ecommerce Automation Framework
-Overview
+# Playwright Ecommerce Automation Framework
 
-This project is an Ecommerce UI automation framework developed using Playwright with Python and Pytest.
+## Overview
 
-The framework follows the Page Object Model (POM) design pattern and is designed to support maintainable, reusable, and scalable automated tests.
+This project is an **Ecommerce automation framework developed using Playwright with Python and Pytest**.
 
-The project covers common Ecommerce workflows such as login, product search, product selection, cart management, checkout, and order validation.
+The framework follows the **Page Object Model (POM)** design pattern and is designed to support maintainable, reusable, and scalable automated testing.
 
-Tech Stack
-Python
-Playwright
-Pytest
-Page Object Model (POM)
-HTML Reporting
-Git & GitHub
-GitHub Actions (CI/CD)
+The framework covers both **UI and API automation**, including ecommerce workflows such as login, product search, product selection, cart management, checkout, order validation, and API validation.
 
-Project Structure
+---
+
+## Tech Stack
+
+* Python
+* Playwright
+* Pytest
+* Page Object Model (POM)
+* Playwright APIRequestContext
+* Pytest HTML Reporting
+* Allure Reporting
+* Git & GitHub
+* GitHub Actions (CI/CD)
+* Python-dotenv
+
+---
+
+## Project Structure
+
+```text
 Playwright_Ecommerce/
 │
 ├── config/
 │   └── Application configuration and environment settings
 │
 ├── data/
-│   └── Test data
+│   └── Test data and API payloads
 │
 ├── pages/
 │   └── Page Object classes
 │
 ├── tests/
-│   └── Test cases
+│   ├── api/
+│   │   └── API test cases
+│   │
+│   └── UI test cases
 │
 ├── utils/
 │   └── Reusable utility functions
@@ -38,133 +52,308 @@ Playwright_Ecommerce/
 │   └── Pytest fixtures and test configuration
 │
 ├── pytest.ini
-│   └── Pytest configuration
+│   └── Pytest configuration and markers
 │
 ├── requirements.txt
 │   └── Project dependencies
+│
+├── .env
+│   └── Local environment variables (not committed to Git)
 │
 ├── .gitignore
 │   └── Files and folders excluded from Git
 │
 └── README.md
     └── Project documentation
-Features
-Playwright-based UI automation
-Python + Pytest framework
-Page Object Model implementation
-Reusable page methods and utilities
-Configurable test environments
-Test data management
-Pytest fixtures
-Cross-browser automation support
-Maintainable and reusable test structure
-GitHub Actions CI/CD integration
-Automated test execution on push and pull request
-HTML test reporting
-Test artifacts including reports, traces, screenshots and videos
+```
 
-Prerequisites
+---
+
+## Features
+
+### UI Automation
+
+* Playwright-based UI automation
+* Python + Pytest framework
+* Page Object Model implementation
+* Reusable page methods and utilities
+* Configurable test environments
+* Test data management
+* Pytest fixtures
+* Cross-browser execution support
+* Login automation
+* Product search and selection
+* Cart validation
+* Checkout workflow
+* Order validation
+
+### API Automation
+
+* API automation using Playwright `APIRequestContext`
+* GET, POST, PUT and DELETE requests
+* Positive and negative API scenarios
+* Query parameter validation
+* Response header validation
+* Response body validation
+* Response status code validation
+* Response time validation
+* Parameterized API testing
+* API chaining
+* Authentication header handling
+* Reusable API fixtures
+
+### Reporting & Debugging
+
+* Pytest HTML reporting
+* Allure reporting
+* Playwright traces
+* Screenshots for failed tests
+* Optional video recording
+* Test artifacts uploaded through GitHub Actions
+
+### CI/CD
+
+* GitHub Actions integration
+* Automated test execution on push and pull request
+* Automatic dependency installation
+* Playwright browser installation
+* Environment variable configuration
+* Automated HTML report generation
+* Test artifact collection
+
+---
+
+## Prerequisites
 
 Make sure the following are installed:
 
-Python 3.x
-Git
-VS Code or any preferred IDE
-Installation
+* Python 3.x
+* Git
+* VS Code or any preferred IDE
 
-Clone the repository:
+---
 
+## Installation
+
+### Clone the repository
+
+```bash
 git clone https://github.com/Shradhanjalli-Priyadarshini/Playwright_Ecommerce.git
+```
 
-Navigate to the project directory:
+### Navigate to the project directory
 
+```bash
 cd Playwright_Ecommerce
+```
 
-Create and activate a virtual environment:
+### Create a virtual environment
 
-python -m venv venv
+```bash
+python -m venv test_env
+```
 
-Windows:
+### Activate the virtual environment
 
-venv\Scripts\activate
+**Windows:**
 
-Install the required dependencies:
+```bash
+test_env\Scripts\activate
+```
 
+### Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-Install Playwright browsers:
+### Install Playwright browsers
 
+```bash
 playwright install
-Running Tests
+```
 
-Run the complete test suite:
+---
 
+## Environment Configuration
+
+API configuration is maintained using environment variables.
+
+Create a `.env` file in the project root:
+
+```text
+API_BASE_URL=https://jsonplaceholder.typicode.com
+API_TOKEN=demo-token
+```
+
+The `.env` file is excluded from Git using `.gitignore`.
+
+For GitHub Actions, the required API environment variables are configured directly in the workflow.
+
+---
+
+## Running Tests
+
+### Run the complete test suite
+
+```bash
 pytest
+```
 
-Run tests with verbose output:
+### Run tests with verbose output
 
+```bash
 pytest -v
+```
 
-Run a specific test file:
+### Run only API tests
 
-pytest tests/test_login.py
+```bash
+pytest -m api
+```
 
-Run tests for a specific environment:
+### Run a specific test file
 
+```bash
+pytest tests/api/test_api.py
+```
+
+### Run tests for a specific environment
+
+```bash
 pytest --env=qa
-Test Scenarios
+```
 
-The framework is designed to automate Ecommerce scenarios including:
+### Run tests with HTML reporting
 
-User login
-Product search
-Product selection
-Add product to cart
-Cart validation
-Checkout workflow
-Order validation
+```bash
+pytest --html=reports/report.html --self-contained-html
+```
+
+---
+
+## Test Coverage
+
+The framework currently contains **26 automated tests** covering UI and API scenarios.
+
+### UI Test Scenarios
+
+* User login
+* Product search
+* Product selection
+* Add product to cart
+* Cart validation
+* Checkout workflow
+* Order validation
+
+### API Test Scenarios
+
+* GET request validation
+* POST request validation
+* PUT request validation
+* DELETE request validation
+* Invalid resource validation
+* Query parameter validation
+* Response header validation
+* Response time validation
+* Parameterized API testing
+* API chaining
+* Authentication header handling
+
+---
 
 ## Reports
 
+### HTML Reporting
+
 The framework generates HTML test execution reports using **pytest-html**.
 
-Run tests with HTML reporting:
+Run:
 
+```bash
 pytest --html=reports/report.html --self-contained-html
+```
 
-The HTML report can be opened in a browser to review test execution results.
+The generated report can be opened in a browser to review test execution results.
 
-### CI/CD Reporting
+### Allure Reporting
 
-GitHub Actions automatically executes the test suite and generates the HTML report.
+Allure results can be generated using:
 
-Test artifacts are uploaded after every CI run and include:
+```bash
+pytest --alluredir=reports/allure-results
+```
 
-- HTML test report
-- Playwright traces
-- Screenshots for failed tests
-- Videos when video recording is enabled
+To open the Allure report:
 
-Configuration
+```bash
+allure serve reports/allure-results
+```
 
-Application and environment-specific configuration is maintained separately from test cases.
+---
+
+## CI/CD Reporting
+
+GitHub Actions automatically executes the complete test suite on **push and pull request** events.
+
+The CI pipeline:
+
+1. Checks out the repository
+2. Sets up Python
+3. Installs project dependencies
+4. Installs Playwright browsers
+5. Configures required environment variables
+6. Executes the Pytest suite
+7. Generates the HTML test report
+8. Uploads test artifacts
+
+Artifacts include:
+
+* HTML test report
+* Playwright traces
+* Screenshots for failed tests
+* Videos when video recording is enabled
+
+The current CI pipeline successfully executes **26 automated tests**.
+
+---
+
+## Configuration
+
+Application and environment-specific configuration is maintained separately from the test cases.
 
 This allows the same test suite to be executed against different environments without modifying the test scripts.
 
-Future Enhancements
+Pytest markers are configured in `pytest.ini`, including:
+
+```text
+smoke
+regression
+login
+cart
+checkout
+api
+```
+
+---
+
+## Future Enhancements
 
 Planned improvements include:
 
-Allure reporting
-Parallel test execution
-Additional API automation
-Improved test data management
-Cross-browser execution
-Docker-based test execution
-Author
+* Parallel test execution
+* Additional API coverage
+* Improved test data management
+* Docker-based test execution
+* Expanded cross-browser execution
+* Advanced CI/CD pipeline configuration
 
-Shradhanjalli Priyadarshini
+---
+
+## Author
+
+**Shradhanjalli Priyadarshini**
 
 QA Engineer | Automation Testing
 
-Skills: Python, Playwright, Pytest, Selenium, API Testing, SQL and AI-assisted Testing
+**Skills:** Python, Playwright, Pytest, Selenium, API Testing, SQL, Mabl and AI-assisted Testing
